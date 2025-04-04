@@ -1,15 +1,15 @@
 package com.example.demo.model;
 
-public class User {
+public class UserReq {
     private Long id;
     private String username;
     private String email;
     private String password;
 
-    public User() {
+    public UserReq() {
     }
 
-    public User(Long id, String username, String email, String password) {
+    public UserReq(Long id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
