@@ -1,19 +1,23 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.UserRole;
+
 public class UserDTO {
     private Long id;
     private String username;
     private String email;
     private String password;
+    private UserRole role;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String username, String email, String password) {
+    public UserDTO(Long id, String username, String email, String password, UserRole role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     // Getters and Setters
@@ -47,5 +51,13 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 } 

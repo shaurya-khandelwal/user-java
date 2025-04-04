@@ -5,33 +5,31 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(name = "total_amount", nullable = false)
+    private Double totalAmount;
 
-    @Column(nullable = false)
-    private String password;
-
-    @Column(name = "role")
+    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private OrderStatus status;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders;
 
     @PrePersist
     protected void onCreate() {
@@ -53,36 +51,36 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getEmail() {
-        return email;
+    public Double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public String getPassword() {
-        return password;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
-    public UserRole getRole() {
-        return role;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -99,13 +97,5 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 } 

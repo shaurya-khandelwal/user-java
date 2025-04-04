@@ -2,36 +2,31 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "products")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false)
-    private String password;
+    private String description;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(name = "stock_quantity", nullable = false)
+    private Integer stockQuantity;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders;
 
     @PrePersist
     protected void onCreate() {
@@ -53,36 +48,36 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPassword() {
-        return password;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public UserRole getRole() {
-        return role;
+    public Integer getStockQuantity() {
+        return stockQuantity;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -99,13 +94,5 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 } 
